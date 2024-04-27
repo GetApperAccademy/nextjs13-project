@@ -1,4 +1,15 @@
 import Head from "next/head";
+import theme from "@/themes";
+import {
+  Button,
+  Stack,
+  ThemeProvider,
+  Box,
+  Container,
+  Grid,
+  Paper,
+} from "@mui/material";
+import { Height } from "@mui/icons-material";
 export default function Home() {
   return (
     <>
@@ -8,9 +19,70 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div>
-        <h1> NextJS</h1>
-      </div>
+      <ThemeProvider theme={theme}>
+        {/*  <Container maxWidth="lg">
+        <Stack
+          spacing={1}
+          sx={{
+            px: 2,
+            height: '100vh',
+            bgcolor: 'secondary.main'
+          }}
+          alignItems='center'
+          justifyContent='space-around'
+
+        >
+          <Box><Button variant="contained">Material UI</Button></Box>
+          <Box><Button variant="outlined">Material UI</Button></Box>
+          <Box><Button variant="text">Material UI</Button></Box>
+          <Box><Button variant="contained" color="secondary">
+            Material UI
+          </Button></Box>
+          <Box><Button variant="outlined" color="secondary">
+            Material UI
+          </Button></Box>
+          <Box><Button variant="text" color="secondary">
+            Material UI
+          </Button></Box>
+        </Stack>
+        <Stack direction="row" width="100%" spacing={1}>
+          <Button sx={{flex:1}} variant="contained">Material UI</Button>
+          <Button sx={{flex:1}} variant="outlined">Material UI</Button>
+          <Button sx={{flex:1}} variant="text">Material UI</Button>
+        </Stack>
+        </Container> */}
+        <Container maxWidth="md">
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Paper sx={{ height: 75, width: "100%", p: 2 }}>Items</Paper>
+            </Grid>
+            <Grid item md={4} lg={3} xl={2}>
+              <Paper sx={{ height: 75, width: "100%", p: 2 }}>Items</Paper>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Paper sx={{ height: 75, width: "100%", p: 2 }}>Items</Paper>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Paper sx={{ height: 75, width: "100%", p: 2 }}>Items</Paper>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Paper sx={{ height: 75, width: "100%", p: 2 }}>Items</Paper>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Paper sx={{ height: 75, width: "100%", p: 2 }}>Items</Paper>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Paper sx={{ height: 75, width: "100%", p: 2 }}>Items</Paper>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Paper sx={{ height: 75, width: "100%", p: 2 }}>Items</Paper>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+              <Paper sx={{ height: 75, width: "100%", p: 2 }}>Items</Paper>
+            </Grid>
+          </Grid>
+        </Container>
+      </ThemeProvider>
     </>
   );
 }
