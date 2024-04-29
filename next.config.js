@@ -1,4 +1,4 @@
-/** @type {import('next').NextConfig} */
+/* @type {import('next').NextConfig} */
 const options = require("./next.config.options.json");
 
 const nextConfig = {
