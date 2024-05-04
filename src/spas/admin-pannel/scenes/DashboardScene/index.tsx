@@ -1,26 +1,32 @@
 import React, { memo } from "react";
 import { useDashboardScene } from "./index.hooks";
-import { Box, Paper } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Box, Paper, Drawer, Stack, MenuItem } from "@mui/material";
+import { Navigate, Outlet } from "react-router-dom";
 
-type DashboardSceneProps = {};
+type DashboardSceneProps = { navigate };
 
 export const DashboardScene = memo(({}: DashboardSceneProps) => {
-  const {} = useDashboardScene();
+  const { navigate } = useDashboardScene();
 
   return (
-    <Box
-      sx={{
-        p: 10,
-        bgcolor: "primary.main",
-      }}
-    >
-      Dashboard:
-      <Paper>
-        Sottoroute:
-        <Outlet></Outlet>
-      </Paper>
-    </Box>
+    <Stack direction="row">
+      <Drawer
+        sx={{
+          width: 240,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: 240,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <MenuItem onClick={() => navigate("products")}>Products</MenuItem>
+        <MenuItem onClick={() => navigate("users")}>Users</MenuItem>
+      </Drawer>
+      <Outlet />
+    </Stack>
   );
 });
 

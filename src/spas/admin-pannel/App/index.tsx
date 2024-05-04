@@ -3,7 +3,13 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Routes, Route, BrowserRouter, Outlet } from "react-router-dom";
 import { AppSnackbar } from "@/components/AppSnackbar";
 import useAppHooks from "./index.hooks";
-import { DashboardScene, LoginScene } from "../scenes";
+import {
+  DashboardScene,
+  LoginScene,
+  ProductDetailsScene,
+  ProductsScene,
+  UsersScene,
+} from "../scenes";
 
 const App: React.FC = () => {
   const { theme, open, type, message, handleClose } = useAppHooks();
@@ -15,20 +21,12 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/login" element={<LoginScene />} />
           <Route path="/dashboard" element={<DashboardScene />}>
+            <Route path="products" element={<ProductsScene />}></Route>
             <Route
-              path="users"
-              element={
-                <span>
-                  Users
-                  <Outlet />
-                </span>
-              }
-            >
-              <Route path="about" element={<span>About</span>} />
-              <Route path="contact" element={<span>Contacts</span>} />
-              <Route path="*" element={<span>All</span>} />
-            </Route>
-            <Route path="post" element={<span>post</span>} />
+              path="products/:productID"
+              element={<ProductDetailsScene />}
+            ></Route>
+            <Route path="users" element={<UsersScene />}></Route>
           </Route>
           <Route path="/" element={<span>TEST</span>} />
         </Routes>
