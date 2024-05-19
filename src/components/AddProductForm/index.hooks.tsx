@@ -3,24 +3,30 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { IProductFe } from "@/models/client/ProductFe";
-import { useDispatch } from "react-redux";
-import { actions } from "@/spas/admin-pannel/redux-store";
+import { useDispatch, useSelector } from "react-redux";
+import { actions, selectors } from "@/spas/admin-pannel/redux-store";
+import { Description } from "@mui/icons-material";
 
 const schema = yup.object({
-  id: yup.string().required(),
   name: yup.string().required("Error message"),
   description: yup.string().required(),
   price: yup.number().required(),
 });
 
-type AddProductFormData = IProductFe;
+type AddProductFormData = {
+  name: string;
+  description: string;
+  price: number;
+};
 
 export const useAddProductForm = () => {
   const dispatch = useDispatch();
+  const isCreatingProduct = useSelector(
+    selectors.getAjaxIsLoadingByApi(actions.postProducts.api),
+  );
   const formData = useForm<AddProductFormData>({
     resolver: yupResolver(schema),
     defaultValues: {
-      id: "",
       name: "",
       description: "",
       price: 0,
@@ -36,9 +42,14 @@ export const useAddProductForm = () => {
   const triggerSubmit = useMemo(
     () =>
       handleSubmit((data) => {
-        dispatch(actions.addProduct(data));
+        dispatch(
+          actions.postProducts.request({
+            name: data.name,
+            description: data.description,
+            price: data.price,
+          }),
+        );
         reset({
-          id: "",
           name: "",
           description: "",
           price: 0,
@@ -51,5 +62,6 @@ export const useAddProductForm = () => {
     formData,
     triggerSubmit,
     submitDisabled,
+    isCreatingProduct,
   };
 };

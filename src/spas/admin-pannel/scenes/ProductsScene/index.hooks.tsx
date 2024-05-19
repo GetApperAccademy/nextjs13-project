@@ -6,6 +6,7 @@ import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useNavigate } from "react-router-dom";
+import { IProductFe } from "@/models/client/ProductFe";
 
 export const useProductsScene = () => {
   const dispatch = useDispatch();
@@ -18,14 +19,7 @@ export const useProductsScene = () => {
     },
     [dispatch],
   );
-  const columns = useMemo<
-    GridColDef<{
-      id: string;
-      name: string;
-      description: string;
-      price: number;
-    }>[]
-  >(
+  const columns = useMemo<GridColDef<IProductFe>[]>(
     () => [
       {
         field: "id",
@@ -46,7 +40,7 @@ export const useProductsScene = () => {
         headerName: "",
         renderCell: (params) => {
           return (
-            <IconButton onClick={() => handleDeleteProduct(params.row.id)}>
+            <IconButton onClick={() => handleDeleteProduct(params.row._id)}>
               <DeleteIcon />
             </IconButton>
           );
@@ -57,7 +51,7 @@ export const useProductsScene = () => {
         headerName: "",
         renderCell: (params) => {
           return (
-            <IconButton onClick={() => navigate(params.row.id)}>
+            <IconButton onClick={() => navigate(params.row._id)}>
               <VisibilityIcon />
             </IconButton>
           );
@@ -67,8 +61,15 @@ export const useProductsScene = () => {
     [handleDeleteProduct, navigate],
   );
 
+  const rows = useMemo(() => {
+    return productsList.map((product) => ({
+      ...product,
+      id: product._id,
+    }));
+  }, [productsList]);
+
   const handleNewProduct = useCallback(() => {
     setShowAddProductForm((prev) => !prev);
   }, []);
-  return { handleNewProduct, rows: productsList, columns, showAddProductForm };
+  return { handleNewProduct, rows, columns, showAddProductForm };
 };

@@ -7,9 +7,10 @@ import { AddProductForm } from "@/components/AddProductForm";
 type ProductsSceneProps = {};
 
 export const ProductsScene = memo(({}: ProductsSceneProps) => {
-  const { handleNewProduct, columns, rows, showAddProductForm } =
+  const { handleNewProduct, rows, columns, showAddProductForm } =
     useProductsScene();
   console.log(showAddProductForm);
+  console.log(rows);
 
   return (
     <Stack
