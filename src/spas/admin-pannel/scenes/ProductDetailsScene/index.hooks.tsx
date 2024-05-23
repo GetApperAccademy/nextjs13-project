@@ -1,15 +1,19 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { selectors } from "../../redux-store";
-import { useMemo } from "react";
-import { IProductFe } from "../../../../models/client/ProductFe/index";
+import { useEffect } from "react";
+import { actions, selectors } from "../../redux-store";
 
 export const useProductDetailsScene = () => {
-  const { productID } = useParams();
-  const productsList = useSelector(selectors.getProductsList);
-  const product = useMemo(
-    () => productsList.find((p) => p.id === productID),
-    [productID, productsList],
+  const dispatch = useDispatch();
+  const { productId } = useParams();
+  const product = useSelector(selectors.getCurrentProduct);
+  const isLoadingProduct = useSelector(
+    selectors.getAjaxIsLoadingByApi(actions.getProductsByProductId.api),
   );
-  return { product };
+
+  useEffect(() => {
+    dispatch(actions.getProductsByProductId.request({ productId }));
+  }, [dispatch, productId]);
+
+  return { product, isLoadingProduct };
 };
