@@ -1,11 +1,20 @@
 import React, { memo } from "react";
 import { useProductDetailsScene } from "./index.hooks";
-import { Stack, Typography } from "@mui/material";
+import { CircularProgress, Stack, Typography } from "@mui/material";
+import { EditProductForm } from "@/components/EditProductForm";
 
 type ProductDetailsSceneProps = {};
 
 export const ProductDetailsScene = memo(({}: ProductDetailsSceneProps) => {
-  const { product } = useProductDetailsScene();
+  const { product, isLoadingProduct } = useProductDetailsScene();
+
+  if (isLoadingProduct) {
+    return (
+      <Typography>
+        Caricamento.. <CircularProgress />
+      </Typography>
+    );
+  }
 
   return (
     <Stack>
@@ -13,6 +22,7 @@ export const ProductDetailsScene = memo(({}: ProductDetailsSceneProps) => {
       <Typography>{product?.name}</Typography>
       <Typography>{product?.description}</Typography>
       <Typography>{product?.price}</Typography>
+      {!!product && <EditProductForm />}
     </Stack>
   );
 });

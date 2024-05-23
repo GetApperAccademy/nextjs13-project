@@ -1,5 +1,5 @@
 import { GridColDef } from "@mui/x-data-grid";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions, selectors } from "../../redux-store";
 import { IconButton } from "@mui/material";
@@ -14,8 +14,8 @@ export const useProductsScene = () => {
   const productsList = useSelector(selectors.getProductsList);
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const handleDeleteProduct = useCallback(
-    (productID: string) => {
-      dispatch(actions.deleteProduct(productID));
+    (productId: string) => {
+      dispatch(actions.deleteProductsByProductId.request({ productId }));
     },
     [dispatch],
   );
@@ -71,5 +71,10 @@ export const useProductsScene = () => {
   const handleNewProduct = useCallback(() => {
     setShowAddProductForm((prev) => !prev);
   }, []);
+
+  useEffect(() => {
+    dispatch(actions.getProducts.request({}));
+  }, [dispatch]);
+
   return { handleNewProduct, rows, columns, showAddProductForm };
 };

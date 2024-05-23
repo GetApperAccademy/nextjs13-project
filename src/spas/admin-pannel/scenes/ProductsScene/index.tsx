@@ -9,8 +9,6 @@ type ProductsSceneProps = {};
 export const ProductsScene = memo(({}: ProductsSceneProps) => {
   const { handleNewProduct, rows, columns, showAddProductForm } =
     useProductsScene();
-  console.log(showAddProductForm);
-  console.log(rows);
 
   return (
     <Stack
